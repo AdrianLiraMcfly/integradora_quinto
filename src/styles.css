@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar {
+        background-color: rgb(8, 156, 8);
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+.navbar-item{
+    margin-right: 10px;
+}
+.icon{
+    width: 50px;
+}
+
+.offcanvas-header{
+    background-color: rgb(245, 212, 27)
+}
+
+.offcanvas-body{
+    background-color: rgb(26, 25, 25)
+}
+
+
+  
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(27, 27, 27);
+  }
+
+  dropdown-menu{
+    position: fixed;
+  }

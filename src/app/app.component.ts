@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
