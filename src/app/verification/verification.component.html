@@ -6,15 +6,17 @@
                 <h5>Verificación de correo</h5>
             </div>
             <div class="card-body">
+                <form>
                 <div class="mb-3">
-                <p class="card-text">Se ha enviado un correo de verificación a tu dirección de correo electrónico. Por favor, verifica tu correo electrónico para continuar.</p>
+                <p class="card-text">Se ha enviado un correo de verificación a tu dirección de correo electrónico. Por favor, verifica para continuar.</p>
                 </div>
                 <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Código de verificación">
+                <input type="text" class="form-control" placeholder="Código de verificación" name="code" [(ngModel)]="code">
             </div>
             <div class="mb-3">
                 <button class="btn btn-primary">Verificar</button>
             </div>
+                </form>
         </div>
         </div>
     </div>

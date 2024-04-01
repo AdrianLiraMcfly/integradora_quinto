@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { tokenGuard } from './guard/token.guard';
 
 
 export const routes: Routes = [
@@ -6,7 +7,7 @@ export const routes: Routes = [
     { path: 'login', loadComponent:() => import('./login/login.component').then(m => m.LoginComponent)},
     { path: 'verification', loadComponent:() => import('./verification/verification.component').then(m => m.VerificationComponent)},
     { path: 'about', loadComponent:() => import('./about/about.component').then(m => m.AboutComponent)},
-    { path: 'home', loadComponent:() => import('./home/home.component').then(m => m.HomeComponent)},
+    { path: 'home', loadComponent:() => import('./home/home.component').then(m => m.HomeComponent), canActivate: [tokenGuard]},
     {path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: '**', loadComponent:() => import('./not-found/not-found.component').then(m => m.NotFoundComponent)}
 ];
