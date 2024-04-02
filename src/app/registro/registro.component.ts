@@ -11,6 +11,7 @@ import { RegisterDataInterface, RegisterResponseInterface } from '../core/interf
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
+
 export class RegistroComponent {
 
   constructor(private auth:AuthService, private route:Router) {  }

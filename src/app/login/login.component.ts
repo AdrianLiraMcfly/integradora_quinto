@@ -51,15 +51,26 @@ export class LoginComponent {
         }, 10000);
       },
       err => {
-        console.log(err);
-        this.isError = true;
-        this.errormsg = err.error;
-        this.alert  = 'alert alert-danger'
-        setTimeout(() => {
-          this.isError = false;
-          this.errormsg = '';
-          this.alert  = ''
-        }, 10000);
+        if(err.error === 'La cuenta no ha sido activada o no existe'){
+          this.isError = true;
+          this.errormsg = err.error;
+          this.alert  = 'alert alert-danger'
+          setTimeout(() => {
+            this.isError = false;
+            this.errormsg = '';
+            this.alert  = ''
+          }, 10000);
+        }
+        else if(err.status === 401){
+          this.isError = true;
+          this.errormsg = "Correo o contraseña incorrectos";
+          this.alert  = 'alert alert-danger'
+          setTimeout(() => {
+            this.isError = false;
+            this.errormsg = '';
+            this.alert  = ''
+          }, 10000);
+        }
       }
     );
     }
