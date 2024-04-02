@@ -15,13 +15,13 @@ export class tokenGuard implements CanActivate{
       return this.auth.isauth().pipe(
         map(response => {
           if (response.status === 200) {
-            return true;
-          } else if(response.status === 401){
+            // Navega a la página de inicio si se detecta un token
+            this.router.navigate(['/home']);
+            return false; // Retorna false para cancelar la navegación original
+          } else if (response.status === 401) {
             this.router.navigate(['/login']);
             return false;
           }
-  
-          
           return false;
         }),
         catchError(error => {

@@ -12,11 +12,12 @@ import { tokenResponseInterface } from '../core/interfaces/login';
 })
 export class HomeComponent {
   constructor(private auth:AuthService, private router:Router) { }
+  username ='';
   ngOnInit():void{
     this.auth.me().subscribe(
       res => {
         console.log(res);
-        localStorage.setItem('userName', res.name);
+        this.username = res.name;
         localStorage.setItem('userEmail', res.email);
       },
       err => {
@@ -24,5 +25,4 @@ export class HomeComponent {
       }
     );
   }
-  user = localStorage.getItem('userName');
 }
