@@ -4,6 +4,7 @@ import { FormControl, FormsModule, ReactiveFormsModule ,FormGroup,Validators} fr
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../Services/auth.service';
 import { RegisterDataInterface, RegisterResponseInterface } from '../core/interfaces/registrer';
+import { MessageService } from '../Services/message.service';
 @Component({
   selector: 'app-registro',
   standalone: true,
@@ -14,18 +15,19 @@ import { RegisterDataInterface, RegisterResponseInterface } from '../core/interf
 
 export class RegistroComponent {
 
-  constructor(private auth:AuthService, private route:Router) {  }
+  constructor(private auth:AuthService, private route:Router, private messageService:MessageService) {  }
 
   public register:RegisterDataInterface = {name:'', email:'', password:'', password_confirmation:''};
   isError=false
   errormsg=''
+  showPassword: boolean = false;
 
   formregistro = new FormGroup({
-    name: new FormControl('', [Validators.required,  Validators.minLength(3),Validators.maxLength(30)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern(/^[a-zA-Z0-9 ]*$/)]),
     email: new FormControl('',  [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    password_confirmation: new FormControl('', [Validators.required, Validators.minLength(8)])
-  });
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^[a-zA-Z0-9 ]*$/)]),
+    password_confirmation: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^[a-zA-Z0-9 ]*$/)])
+    });
 
   get name() { return this.formregistro.get('name'); }
   get email() { return this.formregistro.get('email'); }
@@ -35,6 +37,7 @@ export class RegistroComponent {
   Onsubmit():void{
     this.auth.register(this.register).subscribe((response)=>{
       console.log(response.msg);
+      this.messageService.setMessage(response.msg);
       this.route.navigate(['/login']);
     },(error)=>{
       console.log(error);
@@ -47,4 +50,9 @@ export class RegistroComponent {
     });
   }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 }
+

@@ -18,15 +18,20 @@
                             <div class="text-danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
                                 <div *ngIf="email?.errors?.['required']">Email is required</div>
                                 <div *ngIf="email?.errors?.['email']">Email must be a valid email address</div>
+                                <div *ngIf="email?.errors?.['pattern']">Email must be a valid email address</div>
                             </div>
                         </div>
                         <div class="mb-3" [hidden]="isAuth">
                             <label for="inputPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword" formControlName="password" name="password" [(ngModel)]="login.password" required>
+                            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" formControlName="password" name="password" [(ngModel)]="login.password" required>
                             <div class="text-danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
                                 <div *ngIf="password?.errors?.['required']">Password is required</div>
                                 <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</div>
                             </div>
+                        </div>
+                        <div class="mb-3" [hidden]="isAuth">
+                            <input type="checkbox" id="showPassword" (change)="togglePasswordVisibility()" [(ngModel)]="showPassword">
+                            <label for="showPassword" class="form-label">Mostrar contraseña</label>
                         </div>
                         <div class="mb-3" [hidden]="!isAuth">
                             <label for="code" class="form-label">Codigo de autorizacion</label>

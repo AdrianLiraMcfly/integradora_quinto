@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../Services/auth.service';
 import { LoginDataInterface, LoginAuthInterface } from '../core/interfaces/login';
+import { MessageService } from '../Services/message.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { LoginDataInterface, LoginAuthInterface } from '../core/interfaces/login
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private auth:AuthService, private router:Router) { }
+  constructor(private auth:AuthService, private router:Router, private msg:MessageService) { }
 
   public login:LoginDataInterface = {email:'', password:''};
   public verify:LoginAuthInterface = {email:'', password:'', code:0};
@@ -23,10 +24,25 @@ export class LoginComponent {
   errormsg = '';
   isError= false;
   alert =''
+  message = '';
+  showPassword = false;
 
+  ngOnInit(): void {
+    this.message = this.msg.getMessage();
+    if(this.message !== ''){
+      this.isError = true;
+      this.errormsg = this.message;
+      this.alert  = 'alert alert-success'
+      setTimeout(() => {
+        this.isError = false;
+        this.errormsg = '';
+        this.alert  = ''
+      }, 10000);
+    }
+  }
 
   formlogin = new FormGroup({
-    email: new FormControl('',  [Validators.required, Validators.email]),
+    email: new FormControl('',  [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
     code: new FormControl('',[Validators.required, Validators.minLength(4), Validators.pattern(/^[0-9]+$/)])
   });
@@ -34,6 +50,10 @@ export class LoginComponent {
   get email() { return this.formlogin.get('email'); }
   get password() { return this.formlogin.get('password'); }
   get code() { return this.formlogin.get('code'); }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   Onsubmit():void{
     if(!this.isAuth){

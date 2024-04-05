@@ -18,6 +18,7 @@
                                 <div *ngIf="name?.errors?.['required']">Username is required</div>
                                 <div *ngIf="name?.errors?.['minlength']">Username must be at least 3 characters</div>
                                 <div *ngIf="name?.errors?.['maxlength']">Username must be at most 30 characters</div> 
+                                <div *ngIf="name?.errors?.['pattern']">Username must be alphanumeric</div>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -26,25 +27,32 @@
                             <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
                                 <div *ngIf="email?.errors?.['required']">Email is required</div>
                                 <div *ngIf="email?.errors?.['email']">Email must be a valid email address</div>
+                                <div *ngIf="email?.errors?.['pattern']">Email must be alphanumeric</div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="inputPassword" formControlName="password" [(ngModel)]="register.password" required>
+                            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" formControlName="password" [(ngModel)]="register.password" required>
                             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
                                 <div *ngIf="password?.errors?.['required']">Password is required</div>
                                 <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</div>
+                                <div *ngIf="password?.errors?.['pattern']">Password must be alphanumeric</div>
                             </div>
                              
                         </div>
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
-                            <input type="password" class="form-control" id="password_confirmation" formControlName="password_confirmation" [(ngModel)]="register.password_confirmation" required>
+                            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password_confirmation" formControlName="password_confirmation" [(ngModel)]="register.password_confirmation" required>
                             <div *ngIf="password_confirmation?.invalid && (password_confirmation?.dirty || password_confirmation?.touched)" class="text-danger">
                                 <div *ngIf="password_confirmation?.errors?.['required']">Password is required</div>
                                 <div *ngIf="password_confirmation?.errors?.['minlength']">Password must be at least 6 characters</div>
                                 <div *ngIf="password_confirmation?.errors?.['notEqual']">Passwords must match</div>
+                                <div *ngIf="password_confirmation?.errors?.['pattern']">Password must be alphanumeric</div>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" class="form-check-input" id="showPassword" (click)="togglePasswordVisibility()" [(ngModel)]="showPassword">
+                            <label for="showPassword" class="form-check-label">Mostrar contraseña</label>
                         </div>
                         <button type="submit" class="btn text-white w-100" [disabled]="!formregistro.valid">Registrarse</button>
                     </form>
