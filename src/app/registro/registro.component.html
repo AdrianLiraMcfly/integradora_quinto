@@ -35,7 +35,7 @@
                             <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" formControlName="password" [(ngModel)]="register.password" required>
                             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
                                 <div *ngIf="password?.errors?.['required']">Password is required</div>
-                                <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</div>
+                                <div *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</div>
                                 <div *ngIf="password?.errors?.['pattern']">Password must be alphanumeric</div>
                             </div>
                              
@@ -45,7 +45,7 @@
                             <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password_confirmation" formControlName="password_confirmation" [(ngModel)]="register.password_confirmation" required>
                             <div *ngIf="password_confirmation?.invalid && (password_confirmation?.dirty || password_confirmation?.touched)" class="text-danger">
                                 <div *ngIf="password_confirmation?.errors?.['required']">Password is required</div>
-                                <div *ngIf="password_confirmation?.errors?.['minlength']">Password must be at least 6 characters</div>
+                                <div *ngIf="password_confirmation?.errors?.['minlength']">Password must be at least 8 characters</div>
                                 <div *ngIf="password_confirmation?.errors?.['notEqual']">Passwords must match</div>
                                 <div *ngIf="password_confirmation?.errors?.['pattern']">Password must be alphanumeric</div>
                             </div>

@@ -23,11 +23,7 @@ export class AppComponent {
     this.route.events.subscribe((event) => 
     {
       if(event.constructor.name === 'NavigationEnd'){
-        this.isLoading = false;
         this.checkauth();
-      }
-      else{
-        this.isLoading = true;
       }
     });
   }
