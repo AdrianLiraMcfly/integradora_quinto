@@ -14,7 +14,14 @@
             <div class="card border-primary shadow">
                 <div class="card-body">
                     <h5 class="card-title text-primary">Plantas</h5>
-                    <p class="card-text">No hay plantas por mostrar.</p>
+                    <div *ngFor="let plant of plants.data">
+                    <p class="card-text" *ngIf="plants; else noPlants">
+                            {{plant.plant}}
+                    </p>
+                    </div>
+                    <ng-template #noPlants>
+                        <p class="card-text">No hay plantas por mostrar.</p>
+                    </ng-template>
                 </div>
             </div>
         </div>
