@@ -13,17 +13,22 @@
         <div class="col-md-3">
             <div class="card border-primary shadow">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Plantas</h5>
-                    <div *ngFor="let plant of plants.data">
-                    <p class="card-text" *ngIf="plants; else noPlants">
-                            {{plant.plant}}
-                    </p>
-                    </div>
-                    <ng-template #noPlants>
-                        <p class="card-text">No hay plantas por mostrar.</p>
-                    </ng-template>
+                    <h5 class="card-title text-primary text-center">Plantas</h5>
+                    <table class="table">
+                        <tbody *ngFor="let plant of plants.data">
+                            <tr *ngIf="plants; else noPlants">
+                                <td>{{plant.plant}}</td>
+                            </tr>
+                        </tbody>
+                        <ng-template #noPlants>
+                            <tr>
+                                <td>No hay plantas por mostrar.</td>
+                            </tr>
+                        </ng-template>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>

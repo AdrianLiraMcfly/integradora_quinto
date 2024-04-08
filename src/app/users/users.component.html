@@ -1,0 +1,124 @@
+<div *ngIf="isError" class="{{alert}}" role="alert">
+    {{errormsg}}
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-primary">Usuarios</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn add" type="button" data-bs-toggle="modal" data-bs-target="#postUser">
+                        <i class="bi bi-person"></i> Add User
+                    </button>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="users.data.length === 0">
+                                <tr>
+                                    <td colspan="4" class="text-center">No users found</td>
+                                </tr>
+                            </ng-container>
+                            
+                            <tr *ngFor="let user of users.data">
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.status == 1 ? 'Activo' : 'Inactivo'}}</td>
+                                <td>
+                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#putUser" (click)="editModal(user.id, user.name, user.email, user.status)">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deleteUser" (click)="openModal(user.id)">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<app-modal [modalId]="'deleteUser'" [modalTitle]="'Eliminar usuario'">
+    <p>¿Estás seguro de eliminar el usuario?</p>
+    <button class="btn btn-danger" type="button" (click)="deleteUser(id)" data-bs-dismiss="modal">Eliminar</button>
+    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+</app-modal>
+
+<app-modal [modalId]="'postUser'" [modalTitle]="'Agregar usuario'">
+    <form [formGroup]="userForm" (ngSubmit)="createUser()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" formControlName="name" [(ngModel)]="newUser.name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" formControlName="email" [(ngModel)]="newUser.email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password" [(ngModel)]="newUser.password" required>
+        </div>
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" formControlName="password_confirmation" [(ngModel)]="newUser.password_confirmation" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" formControlName="status" [(ngModel)]="newUser.status" required>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Agregar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    </form>
+</app-modal>
+
+<app-modal [modalId]="'putUser'" [modalTitle]="'Editar usuario'">
+    <form [formGroup]="updateUser" (ngSubmit)="editUser(id)">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" formControlName="name" [(ngModel)]="putUser.name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" formControlName="email" [(ngModel)]="putUser.email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password" [(ngModel)]="putUser.password" required>
+        </div>
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" formControlName="password_confirmation" [(ngModel)]="putUser.password_confirmation" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" formControlName="status" [(ngModel)]="putUser.status" required>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Editar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    </form>
+</app-modal>
