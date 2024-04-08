@@ -32,16 +32,22 @@
 
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" *ngIf="isAuth">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel"><img src="../assets/imagenes/icon.png" alt="" class="icon">Menú</h5>  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel"><img src="../assets/imagenes/icon.png" alt="" class="icon">Menú</h5>  
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body d-flex">
-      <ul class="list-unstyled fs-3">  <li class="mb-2"><a routerLink="/home"><i class="bi bi-house-door me-2"></i>Inicio</a></li>
-        <li class="mb-2"><a routerLink="/plants"><i class="bi bi-leaf me-2"></i>Plantas</a></li>
-      <li class="mb-2"><a routerLink="/about"><i class="bi bi-info-circle me-2"></i>Acerca de</a></li>
-        <li class="mb-2"><a href="#"><i class="bi bi-telephone me-2"></i>Contacto</a></li>
-      </ul>
+    <div class="offcanvas-body d-flex bg-dark">
+      <table class="table table-dark fs-3">
+        <tbody>
+          <tr><td><a routerLink="/home"><i class="bi bi-house-door me-2"></i>Inicio</a></td></tr>
+          <tr><td><img src="../assets/imagenes/iconbw.png" alt="" class="iconplanta"><a routerLink="/plants"><i class="bi bi-leaf me-2"></i>Plantas</a></td></tr>
+          <tr><td><a routerLink="/users"><i class="bi bi-person me-2"></i>Usuarios</a></td></tr>
+          <tr><td><a routerLink="/about"><i class="bi bi-info-circle me-2"></i>Acerca de</a></td></tr>
+          <tr><td><a href="#"><i class="bi bi-telephone me-2"></i>Contacto</a></td></tr>
+        </tbody>
+      </table>
     </div>
-  </div>
+</div>
+
   
 
   <app-loading-screen *ngIf="isLoading"></app-loading-screen>

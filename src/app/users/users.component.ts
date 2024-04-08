@@ -20,6 +20,7 @@ export class UsersComponent {
   isError: boolean = false;
   alert: string = '';
   errormsg: string = '';
+  userfilter: string = 'all';
   newUser:userRegister = {
     name: '',
     email: '',
@@ -139,5 +140,15 @@ export class UsersComponent {
     this.putUser.email = email;
     this.putUser.status = status;
   }
-}
 
+  filterUsers(user: any) {
+    if(user == 'all') {
+      this.userfilter = 'all';
+    } else if(user == 'active') {
+      this.userfilter = 'active';
+    }
+    else if(user == 'inactive') {
+      this.userfilter = 'inactive';
+  }
+}
+}

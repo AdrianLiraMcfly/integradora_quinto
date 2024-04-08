@@ -6,7 +6,13 @@
     cursor: pointer;
     border-radius: 5px;
 }
-.offcanvas-body ul li a {
+.offcanvas-body a {
     color: white;
   }
-  
+
+
+.iconplanta{
+    width: 29px;
+    height: 35px;
+    filter: invert(1);
+}

@@ -15,8 +15,12 @@
                         <i class="bi bi-person"></i> Add User
                     </button>
                 </div>
-                
             </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" (click)="filterUsers('all')">Todos</button>
+                <button type="button" class="btn btn-secondary" (click)="filterUsers('active')">Activos</button>
+                <button type="button" class="btn btn-secondary" (click)="filterUsers('inactive')">Inactivos</button>
+              </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-striped">
@@ -36,6 +40,7 @@
                             </ng-container>
                             
                             <tr *ngFor="let user of users.data">
+                                <ng-container *ngIf="userfilter=='all' || (userfilter == 'active' && user.status == 1 || (userfilter=='inactive' && user.status != 1))">
                                 <td>{{user.name}}</td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.status == 1 ? 'Activo' : 'Inactivo'}}</td>
@@ -47,6 +52,7 @@
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </td>
+                                </ng-container>
                             </tr>
                         </tbody>
                     </table>
