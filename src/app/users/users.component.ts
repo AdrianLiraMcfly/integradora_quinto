@@ -142,13 +142,6 @@ export class UsersComponent {
   }
 
   filterUsers(user: any) {
-    if(user == 'all') {
-      this.userfilter = 'all';
-    } else if(user == 'active') {
-      this.userfilter = 'active';
-    }
-    else if(user == 'inactive') {
-      this.userfilter = 'inactive';
-  }
+    this.userfilter = user;
 }
 }

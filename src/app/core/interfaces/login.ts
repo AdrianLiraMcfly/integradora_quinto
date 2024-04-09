@@ -20,6 +20,7 @@ export interface tokenResponseInterface {
         name: string
         email: string
         email_verified_at: string
+        status: number
         created_at: string
         updated_at: string
     
