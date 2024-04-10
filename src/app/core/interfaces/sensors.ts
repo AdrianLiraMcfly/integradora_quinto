@@ -7,4 +7,8 @@ export interface sensorsData {
     name: string
     status: number
   }
-  
+
+  export interface Newsensor {
+    name: string
+    status: number
+  }

@@ -18,7 +18,7 @@ export class SensorsService {
     return this.http.post<any>(`${environment.UrlSensors}/store`, sensor);
   }
 
-  putSensor(sensor: any, id:number){
+  putSensor(id: number, sensor: any){
     return this.http.put<any>(`${environment.UrlSensors}/update/${id}`, sensor);
   }
 
