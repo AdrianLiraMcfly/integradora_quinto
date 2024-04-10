@@ -4,61 +4,22 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card border shadow">
+        <div class="col-md-4" *ngFor="let plant of plants.data; let i = index">
+            <div class="card md-3" style="width: 18rem;">
+                <img [src]="getImg()" class="card-img-top IconPlant" alt="...">
                 <div class="card-body">
-                    <h1 class="card-title text-primary">Plantas</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn add" type="button" data-bs-toggle="modal" data-bs-target="#postPlant">
-                        <i class="bi bi-leaf"></i> Add Plant
-                    </button>
+                  <h5 class="card-title">{{plant.plant}}</h5>
+                  <p class="card-text">Estado: {{plant.status}}</p>
+                  <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#putPlant" (click)="editModal(plant.id, plant.plant, plant.status)">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plant.id)">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
                 </div>
-                
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Plantas</th>
-                                <th>Sensors</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngIf="plants.data.length === 0">
-                                <tr>
-                                    <td colspan="4" class="text-center">No plants found</td>
-                                </tr>
-                            </ng-container>
-                            
-                            <tr *ngFor="let plant of plants.data">
-                            
-                                <td>{{plant.plant}}</td>
-                                <td>{{plant.sensors}}</td>
-                                <td>{{plant.status == 1 ? 'Activo' : 'Inactivo'}}</td>
-                                <td>
-                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#putPlant" (click)="editModal(plant.id, plant.plant, plant.status)">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </button>
-                                    <button class="btn btn-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plant.id)">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                    
-                                </td>
-                            
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+              </div>
         </div>
     </div>
-</div>
 
 <app-modal [modalId]="'deletePlant'" [modalTitle]="'Elimar planta'">
     <p>¿Estás seguro de eliminar la planta?</p>

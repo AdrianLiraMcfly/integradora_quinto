@@ -34,7 +34,7 @@
                                     </ng-container>
                                     <tr *ngFor="let sensor of sensors.data">
                                         <td>{{sensor.name}}</td>
-                                        <td>{{sensor.status}}</td>
+                                        <td>{{sensor.status === 0 ? 'Inactivo' : 'Activo'}}</td>
                                         <td>
                                             <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#putSensor" (click)="editModal(sensor.id, sensor.name, sensor.status)">
                                                 <i class="bi bi-pencil-fill"></i>

@@ -59,6 +59,7 @@ export class PlantsComponent {
         this.alert = '';
       }, 10000);
     }
+
   }
 
   formPlant = new FormGroup({
@@ -106,5 +107,10 @@ export class PlantsComponent {
       this.msg.setMessage('Planta registrada correctamente');
       this.ngOnInit();
     });
+  }
+
+  getImg(){
+    const numero = Math.floor(Math.random() * 5) + 1;
+    return `../../../assets/imagenes/plantsIcons/${numero}.jpg`;
   }
 }
