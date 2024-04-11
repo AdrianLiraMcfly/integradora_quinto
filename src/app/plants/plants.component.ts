@@ -6,6 +6,7 @@ import { ModalComponent } from '../components/modal/modal.component';
 import { FormControl, FormsModule, ReactiveFormsModule ,FormGroup,Validators} from '@angular/forms';
 import { PlantRegistrer, PlantUpdate } from '../core/interfaces/plantsData';
 import { MessageService } from '../Services/message.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-plants',
@@ -17,13 +18,13 @@ import { MessageService } from '../Services/message.service';
 export class PlantsComponent {
   plants:any;
   id:number = 0;
+  filteredPlants:string= 'all';
   newPlant:PlantRegistrer = {plant:''};
-  putPlant:PlantUpdate = {plant:'',status:0};
   isError = false;
   alert = '';
   errormsg:string = '';
 
-  constructor(private plantsService: PlantsService, private msg:MessageService) {}
+  constructor(private plantsService: PlantsService, private msg:MessageService, private router:Router) {}
 
   ngOnInit() {
     this.plantsService.getPlants().subscribe(res => {
@@ -62,48 +63,14 @@ export class PlantsComponent {
 
   }
 
-  formPlant = new FormGroup({
-    plant: new FormControl('', [Validators.required])
+  plantForm = new FormGroup({
+    plant: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)])
   });
 
-  updatePlant = new FormGroup({
-    plantPut: new FormControl('', [Validators.required]),
-    status: new FormControl('', [Validators.required])
-  });
+  get plant() { return this.plantForm.get('plant'); }
 
-  get plantPut() { return this.updatePlant.get('plantPut'); }
-  get status() { return this.updatePlant.get('status'); }
-  get plant() { return this.formPlant.get('plant'); }
-  
-  openModal(id:number) {
-    this.id = id;
-  }
-
-  editModal(id:number, plant:string, status:number) {
-    this.id = id;
-    this.putPlant.plant = plant;
-    this.putPlant.status = status;
-  }
-
-  deletePlant(id:number) {
-    this.plantsService.eliminarPlants(id).subscribe(res => {
-      this.msg.setMessage('Planta eliminada correctamente');
-      this.ngOnInit();
-    });
-  }
-
-  editPlant(id:number) {
-    this.plantsService.actualizarPlants(this.putPlant,id).subscribe(res => {
-      console.log(res);
-      this.msg.setMessage('Planta actualizada correctamente');
-      console.log(this.errormsg)
-      this.ngOnInit();
-    });
-  }
-
-  addPlant() {
+  addPlant(){
     this.plantsService.registrarPlants(this.newPlant).subscribe(res => {
-      console.log(res);
       this.msg.setMessage('Planta registrada correctamente');
       this.ngOnInit();
     });
@@ -113,4 +80,13 @@ export class PlantsComponent {
     const numero = Math.floor(Math.random() * 5) + 1;
     return `../../../assets/imagenes/plantsIcons/${numero}.jpg`;
   }
+
+  openPlant(id:string){
+    this.router.navigate(['/plant',id]);
+  }
+
+  filterPlants(plant:any) {
+    this.filteredPlants = plant
+}
+
 }

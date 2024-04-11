@@ -3,63 +3,50 @@
 </div>
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4" *ngFor="let plant of plants.data; let i = index">
-            <div class="card md-3" style="width: 18rem;">
-                <img [src]="getImg()" class="card-img-top IconPlant" alt="...">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="card border-primary shadow">
                 <div class="card-body">
-                  <h5 class="card-title">{{plant.plant}}</h5>
-                  <p class="card-text">Estado: {{plant.status}}</p>
-                  <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#putPlant" (click)="editModal(plant.id, plant.plant, plant.status)">
-                    <i class="bi bi-pencil-fill"></i>
-                </button>
-                <button class="btn btn-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plant.id)">
-                    <i class="bi bi-trash-fill"></i>
-                </button>
+                    <h1 class="card-title text-primary">Plantas</h1>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 
-<app-modal [modalId]="'deletePlant'" [modalTitle]="'Elimar planta'">
-    <p>¿Estás seguro de eliminar la planta?</p>
-    <button class="btn btn-danger" type="button" (click)="deletePlant(id)" data-bs-dismiss="modal">Eliminar</button>
-    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
-</app-modal>
+    <div class="row mt-3 justify-content-center">
+        <div class="col-md-6 text-center">
+            <button class="btn btn-primary" (click)="filterPlants('all')">Todos</button>
+            <button class="btn btn-success" (click)="filterPlants('active')">Activos</button>
+            <button class="btn btn-danger" (click)="filterPlants('inactive')">Inactivos</button>
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addPlant">Agregar Planta</button>
+        </div>
+    </div>
 
-<app-modal [modalId]="'postPlant'" [modalTitle]="'Agregar planta'">
-    <form [formGroup]="formPlant" (ngSubmit)="addPlant()">
-        <div class="mb-3">
-            <label for="plant" class="form-label">Planta</label>
-            <input type="text" class="form-control" id="plant" formControlName="plant" name="plant" [(ngModel)]="newPlant.plant" required>
-            <div class="text-danger" *ngIf="plant?.invalid && (plant?.dirty || plant?.touched)">
-                <div *ngIf="plant?.errors?.['required']">Planta es requerida</div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let plant of plants.data; let i = index">
+                <ng-container *ngIf="filteredPlants=='all' || (filteredPlants == 'active' && plant.status == 1 || (filteredPlants=='inactive' && plant.status != 1))">
+                <div class="card md-3" [ngClass]="{'border-primary': plant.status == 1, 'border-danger': plant.status != 1}" style="width: 18rem;">
+                    <img [src]="getImg()" class="card-img-top IconPlant" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{plant.plant}}</h5>
+                      <p class="card-text">Estado: {{plant.status == 1 ? 'Activo' : 'Inactivo'}}</p>
+                    <button class="btn add" type="button" (click)="openPlant(plant.id)">
+                        Ver
+                    </button>
+                    </div>
+                  </div>
+                </ng-container>
             </div>
         </div>
-        <button type="submit" class="btn add" [disabled]="!formPlant.valid" data-bs-dismiss="modal">Agregar</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    </div>
+    
+    <app-modal [modalId]="'addPlant'" [modalTitle]="'Agrega una planta'">
+    <form [formGroup]="plantForm" (ngSubmit)="addPlant()">
+        <div class="mb-3">
+            <label for="plant" class="form-label">Nombre de la planta</label>
+            <input type="text" class="form-control" id="plant" formControlName="plant" [(ngModel)]="newPlant.plant">
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
     </form>
 </app-modal>
-
-<app-modal [modalId]="'putPlant'" [modalTitle]="'Editar planta'">
-    <form [formGroup]="updatePlant" (ngSubmit)="editPlant(id)">
-        <div class="mb-3">
-            <label for="plant" class="form-label">Planta</label>
-            <input type="text" class="form-control" id="plant" formControlName="plantPut" name="plantPut" [(ngModel)]="putPlant.plant" required>
-            <div class="text-danger" *ngIf="plantPut?.invalid && (plantPut?.dirty || plantPut?.touched)">
-                <div *ngIf="plantPut?.errors?.['required']">Planta es requerida</div>
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-control" id="status" formControlName="status" name="status" [(ngModel)]="putPlant.status" required>
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>
-            </select>
-            <div class="text-danger" *ngIf="status?.invalid && (status?.dirty || status?.touched)">
-                <div *ngIf="status?.errors?.['required']">Status es requerido</div>
-            </div>
-        </div>         
-        <button type="submit" class="btn add" [disabled]="!updatePlant.valid" data-bs-dismiss="modal">Editar</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-    </form>

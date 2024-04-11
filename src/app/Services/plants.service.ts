@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environments';
 import { PlantData } from '../core/interfaces/plantsData';
+import { PlantOneData } from '../core/interfaces/plant';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,8 +28,8 @@ export class PlantsService {
     return this.http.delete(`${environment.UrlPlants}/destroy/${id}`);
   }
 
-  getPlantsById(id:number){
-    return this.http.get(`${environment.UrlPlants}/show/${id}`);
+  getPlantsById(id:number):Observable<PlantOneData[]>{
+    return this.http.get<PlantOneData[]>(`${environment.UrlPlants}/show/${id}`);
   }
 
 }

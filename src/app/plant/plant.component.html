@@ -1,0 +1,51 @@
+<div *ngIf="isError" class="{{alert}}" role="alert">
+    {{errormsg}}
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card border-primary shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-primary">{{plantdata.data.plant}}</h1>
+                    <h2 [ngClass]="{'text-success': plantdata.data.status == 1, 'text-danger': plantdata.data.status != 1}">
+                        {{plantdata.data.status == 1 ? 'Activo' : 'Inactivo'}}
+                    </h2>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#putPlant" (click)="editModal(plantdata.data.id, plantdata.data.plant, plantdata.data.status)"><i class="bi bi-pencil-fill"></i></button>
+                    <button *ngIf="plantdata.data.status == 1" class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plantdata.data.id)">Desactivar</button>
+                    <button *ngIf="plantdata.data.status != 1" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plantdata.data.id)">Activar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal [modalId]="'deletePlant'" [modalTitle]="plantdata.data.status == 1 ? 'Desactivar planta' : 'Activar planta'">
+    <p>¿Estás seguro de {{plantdata.data.status == 1 ? 'desactivar' : 'activar'}} la planta?</p>
+    <button class="btn" [ngClass]="{'btn-danger': plantdata.data.status == 1, 'btn-success': plantdata.data.status != 1}" type="button" (click)="deletePlant(id)" data-bs-dismiss="modal">{{plantdata.data.status == 1 ? 'Desactivar' : 'Activar'}}</button>
+    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+</app-modal>
+
+<app-modal [modalId]="'putPlant'" [modalTitle]="'Editar planta'">
+    <form [formGroup]="updatePlant" (ngSubmit)="editPlant(id)">
+        <div class="mb-3">
+            <label for="plant" class="form-label">Planta</label>
+            <input type="text" class="form-control" id="plant" formControlName="plantPut" name="plantPut" [(ngModel)]="putPlant.plant" required>
+            <div class="text-danger" *ngIf="plantPut?.invalid && (plantPut?.dirty || plantPut?.touched)">
+                <div *ngIf="plantPut?.errors?.['required']">Planta es requerida</div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-control" id="status" formControlName="status" name="status" [(ngModel)]="putPlant.status" required>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+            <div class="text-danger" *ngIf="status?.invalid && (status?.dirty || status?.touched)">
+                <div *ngIf="status?.errors?.['required']">Status es requerido</div>
+            </div>
+        </div>         
+        <button type="submit" class="btn add" [disabled]="!updatePlant.valid" data-bs-dismiss="modal">Editar</button>
+    </form>
