@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegisterDataInterface, RegisterResponseInterface } from '../core/interfaces/registrer';
 import { LoginDataInterface, LoginResponseInterface, LoginAuthInterface, tokenResponseInterface } from '../core/interfaces/login';
-import { environment } from '../core/envairoments';
+import { environment } from '../../environments/environments';
 
 @Injectable({
   providedIn: 'root'
