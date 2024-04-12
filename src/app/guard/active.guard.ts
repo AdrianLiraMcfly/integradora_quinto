@@ -3,20 +3,24 @@ import { CanActivateFn ,CanActivate, Router, ActivatedRouteSnapshot,RouterStateS
 import { AuthService } from '../Services/auth.service';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-
-export class ActiveGuard implements CanActivate{
+@Injectable({
+  providedIn: 'root'
+})
+export class activeGuard implements CanActivate{
   constructor(private router: Router, private auth:AuthService) { }
   canActivate(
     route:ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.auth.checkActive().pipe(
         map(response => {
-          if(response === 1){
+          if(response.body === 1){
             return true;
           }
+          else if(response.body === 0){
             this.router.navigate(['/login']);
             return false;
-          
+          }
+          return false;
         }),
         catchError(error => {
           console.log(error);

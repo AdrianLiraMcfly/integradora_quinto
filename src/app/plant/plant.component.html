@@ -22,6 +22,49 @@
     </div>
 </div>
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card border-primary shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Agua</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Agua.Valor}}</p>
+                    <p class="card-text">Unidad: {{data_sensor.data.Agua.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Agua.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card border-primary shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Temperatura</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Temperatura.Valor}}</p>
+                    <p class="card-text">Unidad: {{data_sensor.data.Temperatura.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Temperatura.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card border-primary shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Humedad</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Humedad.Valor}}</p>
+                    <p class="card-text">Unidad: {{data_sensor.data.Humedad.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Humedad.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <app-modal [modalId]="'deletePlant'" [modalTitle]="plantdata.data.status == 1 ? 'Desactivar planta' : 'Activar planta'">
     <p>¿Estás seguro de {{plantdata.data.status == 1 ? 'desactivar' : 'activar'}} la planta?</p>
     <button class="btn" [ngClass]="{'btn-danger': plantdata.data.status == 1, 'btn-success': plantdata.data.status != 1}" type="button" (click)="deletePlant(id)" data-bs-dismiss="modal">{{plantdata.data.status == 1 ? 'Desactivar' : 'Activar'}}</button>

@@ -16,6 +16,7 @@ export class AppComponent {
   title = 'integradora';
   isAuth= false;
   isLoading = false;
+  rol: number = 0;
 
 
 
@@ -24,8 +25,10 @@ export class AppComponent {
     {
       if(event.constructor.name === 'NavigationEnd'){
         this.checkauth();
+        this.checkrol();
       }
     });
+
   }
 
   checkauth(){
@@ -37,6 +40,18 @@ export class AppComponent {
       (err: any) => {
         console.log(err);
         this.isAuth = false;
+      }
+    );
+  }
+
+  checkrol(){
+    this.auth.checkRol().subscribe(
+      (res: any) => {
+        console.log(res);
+        this.rol = res.body;
+      },
+      (err: any) => {
+        console.log(err);
       }
     );
   }
