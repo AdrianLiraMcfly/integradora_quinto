@@ -3,20 +3,34 @@
 </div>
 
 <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="card border-primary shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-primary">Sensores</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
             <div class="card border shadow">
                 <div class="card-body">
-                    <h1 class="card-title text-primary">Sensores</h1>
-
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn add" type="button" data-bs-toggle="modal" data-bs-target="#postSensor">
-                            <i class="bi bi-leaf"></i> Agregar Sensor
+                            <i class="bi bi-cpu-fill me-2"></i> Agregar Sensor
                         </button>
                     </div>
                 </div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary" (click)="filterSensors('all')">Todos</button>
+                    <button type="button" class="btn btn-success" (click)="filterSensors('active')">Activos</button>
+                    <button type="button" class="btn btn-danger" (click)="filterSensors('inactive')">Inactivos</button>
+                  </div>
                 <div class="row">
                     <div class="col-md-12"></div>
                         <div class="table-responsive">
@@ -33,6 +47,7 @@
                                         <td colspan="4" class="text-center">No se encontraron sensores</td>
                                     </ng-container>
                                     <tr *ngFor="let sensor of sensors.data">
+                                        <ng-container *ngIf="filteredSensors=='all' || (filteredSensors == 'active' && sensor.status == 1 || (filteredSensors=='inactive' && sensor.status != 1))">
                                         <td>{{sensor.name}}</td>
                                         <td>{{sensor.status === 0 ? 'Inactivo' : 'Activo'}}</td>
                                         <td>
@@ -43,6 +58,7 @@
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </td>
+                                    </ng-container>
                                     </tr>
                                 </tbody>
                             </table>

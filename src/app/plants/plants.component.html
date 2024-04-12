@@ -23,7 +23,7 @@
     </div>
 
     <div class="container mt-5">
-        <div class="row">
+        <div class="row" *ngIf="plants.data.length; else noPlants">
             <div class="col-md-4" *ngFor="let plant of plants.data; let i = index">
                 <ng-container *ngIf="filteredPlants=='all' || (filteredPlants == 'active' && plant.status == 1 || (filteredPlants=='inactive' && plant.status != 1))">
                 <div class="card md-3" [ngClass]="{'border-primary': plant.status == 1, 'border-danger': plant.status != 1}" style="width: 18rem;">
@@ -39,6 +39,13 @@
                 </ng-container>
             </div>
         </div>
+        <ng-template #noPlants>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h3>No hay plantas para mostrar.</h3>
+                </div>
+            </div>
+        </ng-template>
     </div>
     
     <app-modal [modalId]="'addPlant'" [modalTitle]="'Agrega una planta'">
@@ -47,6 +54,6 @@
             <label for="plant" class="form-label">Nombre de la planta</label>
             <input type="text" class="form-control" id="plant" formControlName="plant" [(ngModel)]="newPlant.plant">
         </div>
-        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Agregar</button>
     </form>
 </app-modal>

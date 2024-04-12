@@ -22,6 +22,7 @@ updateSensors: Newsensor = { name: '', status: 0};
 isError: boolean = false;
 alert: string = '';
 errormsg: string = '';
+filteredSensors:string='all';
 
   constructor(private sensorsService: SensorsService, private messageService: MessageService){
     this.sensors = {data: []};
@@ -92,5 +93,9 @@ errormsg: string = '';
   }
   openModal(id: number){
     this.id = id;
+  }
+
+  filterSensors(sensor:any){
+    this.filteredSensors = sensor
   }
 }
