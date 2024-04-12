@@ -32,6 +32,14 @@ export class AuthService {
     return this.http.get<tokenResponseInterface>(`${environment.UrlAuth}/me`);
   }
 
+  checkRol():Observable<HttpResponse<any>>{
+    return this.http.get<any>(`${environment.UrlAuth}/getrol`,{observe:'response'});
+  }
+
+  checkActive():Observable<any>{
+    return this.http.get<any>(`${environment.UrlAuth}/getstatus`,{observe:'response'});
+  }
+
   logout():Observable<HttpResponse<any>>{
     return this.http.post<any>(`${environment.UrlAuth}/logout`,{observe:'response'});
   }

@@ -9,22 +9,20 @@ export class ActiveGuard implements CanActivate{
   canActivate(
     route:ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.auth.me().pipe(
-        map((HttpResponse: any) => {
-          if (HttpResponse.body.status === 1) {
+      return this.auth.checkActive().pipe(
+        map(response => {
+          if(response === 1){
             return true;
-          } else if(HttpResponse.body.status === 0){
+          }
             this.router.navigate(['/login']);
             return false;
-          }
           
-          return false;
         }),
         catchError(error => {
-          console.error(error);
+          console.log(error);
           this.router.navigate(['/login']);
           return of(false);
         })
-      );
+        )
     }
 }
