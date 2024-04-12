@@ -11,6 +11,6 @@ export class WebsocketService {
   constructor(private http:HttpClient) { }
 
   getMongo(){
-    return this.http.get<Mongo>('http://127.0.0.1:8000/api/v1/websocket/last');
+    return this.http.get<Mongo>('http://18.227.105.11:8000/api/v1/websocket/last');
   }
 }
