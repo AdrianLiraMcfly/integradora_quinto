@@ -5,6 +5,7 @@ import { tokenResponseInterface } from '../core/interfaces/login';
 import { PlantsService } from '../Services/plants.service';
 import { CommonModule } from '@angular/common';
 import { PlantData } from '../core/interfaces/plantsData';
+import { WebsocketService } from '../Services/websocket.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import { PlantData } from '../core/interfaces/plantsData';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(private auth:AuthService, private router:Router, private plantsService:PlantsService) { }
+  constructor(private auth:AuthService, private router:Router, private plantsService:PlantsService, private socket:WebsocketService) { }
   username:any;
   plants:any;
 
@@ -41,5 +42,10 @@ export class HomeComponent {
         console.log(err);
       }
     );
+    
+  }
+
+  link(){
+    this.router.navigate(['/plants']);
   }
 }

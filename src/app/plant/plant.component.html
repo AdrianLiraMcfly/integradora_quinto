@@ -4,7 +4,7 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card border-primary shadow">
                 <div class="card-body">
                     <h1 class="card-title text-primary">{{plantdata.data.plant}}</h1>
@@ -12,7 +12,7 @@
                         {{plantdata.data.status == 1 ? 'Activo' : 'Inactivo'}}
                     </h2>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer text-start">
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#putPlant" (click)="editModal(plantdata.data.id, plantdata.data.plant, plantdata.data.status)"><i class="bi bi-pencil-fill"></i></button>
                     <button *ngIf="plantdata.data.status == 1" class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plantdata.data.id)">Desactivar</button>
                     <button *ngIf="plantdata.data.status != 1" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plantdata.data.id)">Activar</button>
@@ -21,47 +21,97 @@
         </div>
     </div>
 </div>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <!-- Agua -->
+        <div class="col-md-4 mb-4">
             <div class="card border-primary shadow">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/raindrops-310146_1280.png" alt="" class="sensorIcon">
                     <h5 class="card-title text-primary">Agua</h5>
-                    <p class="card-text">Valor: {{data_sensor.data.Agua.Valor}}</p>
-                    <p class="card-text">Unidad: {{data_sensor.data.Agua.Unidad}}</p>
+                    <p class="card-text">Valor: {{data_sensor.data.Agua.Valor}} {{data_sensor.data.Agua.Unidad}}</p>
                     <p class="card-text">Fecha: {{data_sensor.data.Agua.Fecha}}</p>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
+        </div>        
+        <!-- Temperatura -->
+        <div class="col-md-4 mb-4">
             <div class="card border-primary shadow">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/temp.png" alt="" class="sensorIcon">
                     <h5 class="card-title text-primary">Temperatura</h5>
-                    <p class="card-text">Valor: {{data_sensor.data.Temperatura.Valor}}</p>
-                    <p class="card-text">Unidad: {{data_sensor.data.Temperatura.Unidad}}</p>
+                    <p class="card-text">Valor: {{data_sensor.data.Temperatura.Valor}} {{data_sensor.data.Temperatura.Unidad}}</p>
                     <p class="card-text">Fecha: {{data_sensor.data.Temperatura.Fecha}}</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
+        <!-- Humedad -->
+        <div class="col-md-4 mb-4">
             <div class="card border-primary shadow">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/hum.png" alt="" class="sensorIcon">
                     <h5 class="card-title text-primary">Humedad</h5>
-                    <p class="card-text">Valor: {{data_sensor.data.Humedad.Valor}}</p>
-                    <p class="card-text">Unidad: {{data_sensor.data.Humedad.Unidad}}</p>
+                    <p class="card-text">Valor: {{data_sensor.data.Humedad.Valor}} {{data_sensor.data.Humedad.Unidad}}</p>
                     <p class="card-text">Fecha: {{data_sensor.data.Humedad.Fecha}}</p>
                 </div>
             </div>
         </div>
+        <!-- Lluvia -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-primary shadow">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/lluvia.png" alt="" class="sensorIcon">
+                    <h5 class="card-title text-primary">Lluvia</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Lluvia.Valor}} {{data_sensor.data.Lluvia.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Lluvia.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Suelo -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-primary shadow">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/suelo.png" alt="" class="sensorIcon">
+                    <h5 class="card-title text-primary">Suelo</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Suelo.Valor}} {{data_sensor.data.Suelo.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Suelo.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Luz -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-primary shadow">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/luz.png" alt="" class="sensorIcon">
+                    <h5 class="card-title text-primary">Luz</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Luz.Valor}} {{data_sensor.data.Luz.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Luz.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Movimiento -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-primary shadow">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/mov.png" alt="" class="sensorIcon">
+                    <h5 class="card-title text-primary">Movimiento</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Movimiento.Valor}} {{data_sensor.data.Movimiento.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Movimiento.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Vibracion -->
+        <div class="col-md-4 mb-4">
+            <div class="card border-primary shadow">
+                <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
+                    <img src="../../assets/imagenes/vibr.png" alt="" class="sensorIcon">
+                    <h5 class="card-title text-primary">Vibracion</h5>
+                    <p class="card-text">Valor: {{data_sensor.data.Vibracion.Valor}} {{data_sensor.data.Vibracion.Unidad}}</p>
+                    <p class="card-text">Fecha: {{data_sensor.data.Vibracion.Fecha}}</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

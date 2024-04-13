@@ -17,6 +17,8 @@ export class activeGuard implements CanActivate{
             return true;
           }
           else if(response.body === 0){
+            localStorage.removeItem('token');
+            localStorage.removeItem('userEmail');
             this.router.navigate(['/login']);
             return false;
           }
