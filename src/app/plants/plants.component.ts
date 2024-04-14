@@ -23,14 +23,26 @@ export class PlantsComponent {
   isError = false;
   alert = '';
   errormsg:string = '';
+  srcImg = '';
 
-  constructor(private plantsService: PlantsService, private msg:MessageService, private router:Router) {}
+  constructor(private plantsService: PlantsService, private msg:MessageService, private router:Router) {
+  
+  }
 
   ngOnInit() {
+    
     this.plantsService.getPlants().subscribe(res => {
       console.log(res);
       this.plants = res;
     });
+
+    this.router.events.subscribe((event) => 
+      {
+        if(event.constructor.name === 'NavigationEnd'){
+          this.srcImg = this.getImg();
+        }
+      });
+
     this.id = 0;
     this.errormsg = this.msg.getMessage();
     if(this.errormsg == 'Planta actualizada correctamente'){

@@ -3,16 +3,18 @@
 </div>
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
+    <div class="d-flex justify-content-center align-items-center">
         <div class="col-md-6">
             <div class="card border-primary shadow">
-                <div class="card-body">
+                <div class="card-body text-center">
+                    <img src="../../assets/imagenes/plantsIcons/1.jpg" alt="" class="IconPlant mx-auto d-block">
                     <h1 class="card-title text-primary">{{plantdata.data.plant}}</h1>
                     <h2 [ngClass]="{'text-success': plantdata.data.status == 1, 'text-danger': plantdata.data.status != 1}">
                         {{plantdata.data.status == 1 ? 'Activo' : 'Inactivo'}}
                     </h2>
                 </div>
-                <div class="card-footer text-start">
+                <div class="card-footer text-center">
+                    <button class="btn add" type="button" (click)="regar()" [disabled]="!buttonActive">Regar</button>
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#putPlant" (click)="editModal(plantdata.data.id, plantdata.data.plant, plantdata.data.status)"><i class="bi bi-pencil-fill"></i></button>
                     <button *ngIf="plantdata.data.status == 1" class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plantdata.data.id)">Desactivar</button>
                     <button *ngIf="plantdata.data.status != 1" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#deletePlant" (click)="openModal(plantdata.data.id)">Activar</button>
@@ -21,10 +23,11 @@
         </div>
     </div>
 </div>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <!-- Agua -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/raindrops-310146_1280.png" alt="" class="sensorIcon">
@@ -35,7 +38,7 @@
             </div>
         </div>        
         <!-- Temperatura -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/temp.png" alt="" class="sensorIcon">
@@ -46,7 +49,7 @@
             </div>
         </div>
         <!-- Humedad -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/hum.png" alt="" class="sensorIcon">
@@ -57,7 +60,7 @@
             </div>
         </div>
         <!-- Lluvia -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/lluvia.png" alt="" class="sensorIcon">
@@ -68,7 +71,7 @@
             </div>
         </div>
         <!-- Suelo -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/suelo.png" alt="" class="sensorIcon">
@@ -79,7 +82,7 @@
             </div>
         </div>
         <!-- Luz -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/luz.png" alt="" class="sensorIcon">
@@ -90,7 +93,7 @@
             </div>
         </div>
         <!-- Movimiento -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/mov.png" alt="" class="sensorIcon">
@@ -101,7 +104,7 @@
             </div>
         </div>
         <!-- Vibracion -->
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-4">
             <div class="card border-primary shadow">
                 <div class="card-body d-flex flex-column align-items-center"> <!-- Añadido 'd-flex flex-column align-items-center' -->
                     <img src="../../assets/imagenes/vibr.png" alt="" class="sensorIcon">

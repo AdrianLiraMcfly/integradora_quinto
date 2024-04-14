@@ -26,7 +26,8 @@
                             <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" formControlName="password" name="password" [(ngModel)]="login.password" required>
                             <div class="text-danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
                                 <div *ngIf="password?.errors?.['required']">Password is required</div>
-                                <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</div>
+                                <div *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</div>
+                                <div *ngIf="password?.errors?.['pattern']">Password must contain at least one letter and one number</div>
                             </div>
                         </div>
                         <div class="mb-3" [hidden]="isAuth">
@@ -35,13 +36,13 @@
                         </div>
                         <div class="mb-3" [hidden]="!isAuth">
                             <label for="code" class="form-label">Codigo de autorizacion</label>
-                            <input type="text" class="form-control" id="code" formControlName="code" name="code" [(ngModel)]="verify.code" required>
+                            <input type="text" class="form-control" id="code" formControlName="code" name="code" placeholder="Ingresa el codigo" [(ngModel)]="verify.code" required>
                             <div class="text-danger" *ngIf="code?.invalid && (code?.dirty || code?.touched)">
-                                <div *ngIf="code?.errors?.['pattern']">Solo se admiten numeros</div>
+                                <div *ngIf="code?.errors?.['minlength']">Codigo de autorizacion debe tener 6 caracteres</div>
                                 <div *ngIf="code?.errors?.['required']">Codigo de autorizacion es requerido</div>
                             </div>
                         </div>
-                        <button type="submit" class="btn text-white w-100" [disabled]="!formlogin.valid">Iniciar sesión</button>
+                        <button type="submit" class="btn text-white w-100" >Iniciar sesión</button>
                     </form>
                 </div>
                 <div class="card-footer text-center">

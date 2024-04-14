@@ -29,6 +29,7 @@ export class PlantComponent implements OnInit, OnDestroy{
   errormsg: string = '';
   isError = false;
   alert = '';
+  buttonActive = true;
   echo:any;
   newPlant: PlantRegistrer = {plant: ''};
   putPlant: PlantUpdate = {plant: '', status: 0};
@@ -121,6 +122,16 @@ export class PlantComponent implements OnInit, OnDestroy{
       this.msg.setMessage('Planta actualizada correctamente');
       this.ngOnInit();
     });
+  }
+
+  regar() {
+    this.alert = 'alert alert-success';
+    this.errormsg = 'Planta regada correctamente, espera 5 segundos para volver a regar';
+    this.isError = true;
+    this.buttonActive = false;
+    setTimeout(() => {
+      this.buttonActive = true;
+    }, 5000);
   }
 
   websocket(){

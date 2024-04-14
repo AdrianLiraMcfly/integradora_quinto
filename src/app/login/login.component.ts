@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(private auth:AuthService, private router:Router, private msg:MessageService) { }
 
   public login:LoginDataInterface = {email:'', password:''};
-  public verify:LoginAuthInterface = {email:'', password:'', code:0};
+  public verify:LoginAuthInterface = {email:'', password:'', code:null};
   isAuth = false;
   errormsg = '';
   isError= false;
@@ -43,8 +43,8 @@ export class LoginComponent {
 
   formlogin = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    code: new FormControl('',[Validators.required, Validators.minLength(4), Validators.pattern(/^[0-9]+$/)])
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    code: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   get email() { return this.formlogin.get('email'); }

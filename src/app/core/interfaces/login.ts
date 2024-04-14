@@ -6,7 +6,7 @@ export interface LoginDataInterface {
 export interface LoginAuthInterface {
     email:string
     password:string
-    code: number
+    code: number | null
 }
 
 export interface LoginResponseInterface {
