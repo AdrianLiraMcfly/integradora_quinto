@@ -17,7 +17,7 @@ export class AppComponent implements OnInit{
   isAuth= false;
   isLoading = false;
   rol: number = 0;
-
+  status = false;
 
 
   constructor(private auth: AuthService, private route:Router) { 
@@ -34,8 +34,10 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.checkauth();
     this.checkrol();
+    this.checkstatus();
     console.log(this.isAuth);
     console.log(this.rol);
+    
   }
 
   checkauth(){
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit{
       (res: any) => {
         console.log(res);
         this.isAuth = true;
+        console.log(res.status)
       },
       (err: any) => {
         console.log(err);
@@ -63,6 +66,17 @@ export class AppComponent implements OnInit{
     );
   }
 
+  checkstatus(){
+    this.auth.checkActive().subscribe(
+      (res: any) => {
+        console.log(res);
+        this.status = res.body;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
 
   logout(){
     this.auth.logout().subscribe(
