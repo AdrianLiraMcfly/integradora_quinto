@@ -34,7 +34,7 @@
                             <input type="checkbox" id="showPassword" (change)="togglePasswordVisibility()" [(ngModel)]="showPassword">
                             <label for="showPassword" class="form-label">Mostrar contraseña</label>
                         </div>
-                        <div class="mb-3" [hidden]="!isAuth">
+                        <div class="mb-3" *ngIf="isAuth">
                             <label for="code" class="form-label">Codigo de autorizacion</label>
                             <input type="text" class="form-control" id="code" formControlName="code" name="code" placeholder="Ingresa el codigo" [(ngModel)]="verify.code" required>
                             <div class="text-danger" *ngIf="code?.invalid && (code?.dirty || code?.touched)">
