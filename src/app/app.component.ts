@@ -71,6 +71,9 @@ export class AppComponent implements OnInit{
       (res: any) => {
         console.log(res);
         this.status = res.body;
+        if(this.status == false){
+          this.route.navigate(['/login']);
+        }
       },
       (err: any) => {
         console.log(err);
