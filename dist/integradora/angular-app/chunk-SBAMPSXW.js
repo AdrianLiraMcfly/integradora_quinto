@@ -1,1 +1,0 @@
-import{o as n}from"./chunk-CLN57MIK.js";import{P as r,U as e}from"./chunk-6IZXC2FC.js";var p=(()=>{let t=class t{constructor(o){this.http=o}getMongo(){return this.http.get("http://18.227.105.11:8000/api/v1/websocket/last")}};t.\u0275fac=function(a){return new(a||t)(e(n))},t.\u0275prov=r({token:t,factory:t.\u0275fac,providedIn:"root"});let i=t;return i})();export{p as a};
