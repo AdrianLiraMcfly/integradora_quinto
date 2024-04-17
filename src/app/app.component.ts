@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, Route, Router } from '@angular/router';
 import { AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'integradora';
   isAuth= false;
   isLoading = false;
@@ -29,6 +29,13 @@ export class AppComponent {
       }
     });
 
+  }
+
+  ngOnInit(): void {
+    this.checkauth();
+    this.checkrol();
+    console.log(this.isAuth);
+    console.log(this.rol);
   }
 
   checkauth(){
@@ -62,7 +69,6 @@ export class AppComponent {
       (res: any) => {
         console.log(res);
         localStorage.removeItem('userName');
-        localStorage.removeItem('userEmail');
         localStorage.removeItem('token');
         this.isAuth = false;
         this.route.navigate(['/login']);
