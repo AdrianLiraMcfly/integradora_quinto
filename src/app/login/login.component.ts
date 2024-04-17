@@ -101,7 +101,9 @@ export class LoginComponent {
         res => {
           console.log(res);
           localStorage.setItem('token', res.access_token);
-          this.router.navigateByUrl('/home', { skipLocationChange: true });
+          this.router.navigate(['/home']).then(() => {
+            window.location.reload();
+          });
         },
         err => {
           console.log(err);
