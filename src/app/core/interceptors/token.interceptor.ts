@@ -10,9 +10,9 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     else if(localStorage.getItem('token')){
       token = localStorage.getItem('token');
     }
-    header = header.set('Content-Type', 'application/json');
-    req = req.clone({ headers: header });
-    console.log(req.headers);
+    //header = header.set('Content-Type', 'application/json');
+    //req = req.clone({ headers: header });
+    //console.log(req.headers);
     return next(req);
   };
   

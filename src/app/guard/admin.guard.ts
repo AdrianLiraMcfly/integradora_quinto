@@ -15,10 +15,10 @@ export class AdminGuard implements CanActivate{
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.auth.checkRol().pipe(
       map(response => {
-        if(response.body === 1){
+        if(response.body === 2){
           return true;
         }
-        else if(response.body === 2){
+        else if(response.body === 1){
           this.router.navigate(['/home']);
           return false;
         }
