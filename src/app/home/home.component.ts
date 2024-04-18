@@ -46,6 +46,6 @@ export class HomeComponent {
   }
 
   link(){
-    this.router.navigate(['/plants']);
+    this.router.navigate(['/lifeplants/plants']);
   }
 }

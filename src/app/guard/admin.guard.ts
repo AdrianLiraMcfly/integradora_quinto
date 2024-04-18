@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate{
           return true;
         }
         else if(response.body === 1){
-          this.router.navigate(['/home']);
+          this.router.navigate(['/lifeplants/home']);
           return false;
         }
         return false;

@@ -22,6 +22,7 @@ export interface tokenResponseInterface {
         email_verified_at: string
         status: number
         created_at: string
-        updated_at: string
+        updated_at: string,
+        plant_count:number
     
 }

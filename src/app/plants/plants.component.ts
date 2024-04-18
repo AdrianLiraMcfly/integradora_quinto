@@ -94,7 +94,7 @@ export class PlantsComponent {
   }
 
   openPlant(id:string){
-    this.router.navigate(['/plant',id]);
+    this.router.navigate(['/lifeplants/plant',id]);
   }
 
   filterPlants(plant:any) {

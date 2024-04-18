@@ -43,4 +43,8 @@ export class AuthService {
   logout():Observable<HttpResponse<any>>{
     return this.http.post<any>(`${environment.UrlAuth}/logout`,{observe:'response'});
   }
+
+  changepassword(data:any):Observable<HttpResponse<any>>{
+    return this.http.post<any>(`${environment.UrlAuth}/changepassword`,data);
+  }
 }

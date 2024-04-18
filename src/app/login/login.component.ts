@@ -6,12 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../Services/auth.service';
 import { LoginDataInterface, LoginAuthInterface } from '../core/interfaces/login';
 import { MessageService } from '../Services/message.service';
-
+import { NavoneComponent } from '../navone/navone.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule,NavoneComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -101,9 +101,7 @@ export class LoginComponent {
         res => {
           console.log(res);
           localStorage.setItem('token', res.access_token);
-          this.router.navigate(['/home']).then(() => {
-            window.location.reload();
-          });
+          this.router.navigate(['/lifeplants/home'])
         },
         err => {
           console.log(err);

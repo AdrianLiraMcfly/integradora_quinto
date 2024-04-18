@@ -1,8 +1,7 @@
+<app-navone></app-navone>
 <div *ngIf="isError" class="{{alert}}" role="alert">
     {{errormsg}}
 </div>
-
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -16,18 +15,18 @@
                             <label for="inputEmail" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="inputEmail" formControlName="email" name="email" [(ngModel)]="login.email" required>
                             <div class="text-danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-                                <div *ngIf="email?.errors?.['required']">Email is required</div>
-                                <div *ngIf="email?.errors?.['email']">Email must be a valid email address</div>
-                                <div *ngIf="email?.errors?.['pattern']">Email must be a valid email address</div>
+                                <div *ngIf="email?.errors?.['required']">El correo electrónico es requerido</div>
+                                <div *ngIf="email?.errors?.['email']">El correo electrónico debe ser válido</div>
+                                <div *ngIf="email?.errors?.['pattern']">El correo electrónico debe ser válido</div>
                             </div>
                         </div>
                         <div class="mb-3" [hidden]="isAuth">
                             <label for="inputPassword" class="form-label">Contraseña</label>
                             <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" formControlName="password" name="password" [(ngModel)]="login.password" required>
                             <div class="text-danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-                                <div *ngIf="password?.errors?.['required']">Password is required</div>
-                                <div *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</div>
-                                <div *ngIf="password?.errors?.['pattern']">Password must contain at least one letter and one number</div>
+                                <div *ngIf="password?.errors?.['required']">La contraseña es requerida</div>
+                                <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</div>
+                                <div *ngIf="password?.errors?.['pattern']">La contraseña debe contener al menos una letra y un número</div>
                             </div>
                         </div>
                         <div class="mb-3" [hidden]="isAuth">

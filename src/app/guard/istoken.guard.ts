@@ -15,18 +15,20 @@ export class istokenGuard implements CanActivate {
       return this.auth.isauth().pipe(
         map(response => {
           if (response.status === 200) {
-            // Si el usuario ya está autenticado, redirige a la página de inicio
-            this.router.navigate(['/home']);
-            return false; // No permitir la navegación a la página de inicio de sesión o registro
+           
+            return true
+        
           } else if(response.status === 401){
-            return true; // Permitir la navegación a la página de inicio de sesión o registro
+            this.router.navigate(['/login'])
+            return false;
+          
           }
-          return true;
+          return false;
         }),
         catchError(error => {
           console.error(error);
-          // En caso de error, permitir la navegación a la página de inicio de sesión o registro
-          return of(true);
+          this.router.navigate(['/login'])
+          return of(false);
         })
       );
     }

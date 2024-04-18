@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../Services/auth.service';
 import { RegisterDataInterface, RegisterResponseInterface } from '../core/interfaces/registrer';
 import { MessageService } from '../Services/message.service';
+import { NavoneComponent } from '../navone/navone.component';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule,NavoneComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -19,7 +20,7 @@ export class RegistroComponent {
 
   public register:RegisterDataInterface = {name:'', email:'', password:'', password_confirmation:''};
   isError=false
-  errormsg=''
+  errors = {name:'',email:'',password:''}
   showPassword: boolean = false;
 
   formregistro = new FormGroup({
@@ -42,10 +43,14 @@ export class RegistroComponent {
     },(error)=>{
       console.log(error);
       this.isError= true
-      this.errormsg=error.error.errors.email
+      this.errors.email=error.error.errors.email
+      this.errors.name=error.error.errors.name
+      this.errors.password=error.error.errors.password
       setTimeout(() => {
         this.isError = false;
-        this.errormsg = '';
+        this.errors.email=''
+        this.errors.name=''
+        this.errors.password=''
       }, 10000);
     });
   }
