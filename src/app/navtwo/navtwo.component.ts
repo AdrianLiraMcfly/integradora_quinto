@@ -22,9 +22,10 @@ export class NavtwoComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.getRol()
   }
 
-  getRol(){
+  async getRol(){
     this.auth.checkRol().subscribe((res)=>{
       console.log(res)
       this.rol_id = res.body
