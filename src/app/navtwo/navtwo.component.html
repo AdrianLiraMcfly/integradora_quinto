@@ -31,13 +31,13 @@
     <div class="offcanvas-body d-flex bg-dark">
       <table class="table table-dark fs-3">
         <tbody>
-          <tr><td><a routerLink="/lifeplants/home"><i class="bi bi-house-door me-2"></i>Inicio</a></td></tr>
-          <tr><td><img src="../assets/imagenes/iconbw.png" alt="" class="iconplanta"><a routerLink="/lifeplants/plants"><i class="bi bi-leaf me-2"></i>Plantas</a></td></tr>
+          <tr><td><a routerLink="/lifeplants/home" data-bs-dismiss="offcanvas"><i class="bi bi-house-door me-2"></i>Inicio</a></td></tr>
+          <tr><td><img src="../assets/imagenes/iconbw.png" alt="" class="iconplanta"><a routerLink="/lifeplants/plants" data-bs-dismiss="offcanvas"><i class="bi bi-leaf me-2"></i>Plantas</a></td></tr>
           @if(rol_id == 2){
-          <tr><td><a routerLink="/lifeplants/users"><i class="bi bi-person me-2"></i>Usuarios</a></td></tr>
-          <tr><td><a routerLink="/lifeplants/sensors"><i class="bi bi-cpu-fill me-2"></i>Sensores</a></td></tr>
+          <tr><td><a routerLink="/lifeplants/users" data-bs-dismiss="offcanvas"><i class="bi bi-person me-2"></i>Usuarios</a></td></tr>
+          <tr><td><a routerLink="/lifeplants/sensors" data-bs-dismiss="offcanvas"><i class="bi bi-cpu-fill me-2"></i>Sensores</a></td></tr>
           }
-          <tr><td><a routerLink="/lifeplants/about"><i class="bi bi-info-circle me-2"></i>Acerca de</a></td></tr>
+          <tr><td><a routerLink="/lifeplants/about" data-bs-dismiss="offcanvas"><i class="bi bi-info-circle me-2"></i>Acerca de</a></td></tr>
         </tbody>
       </table>
     </div>
