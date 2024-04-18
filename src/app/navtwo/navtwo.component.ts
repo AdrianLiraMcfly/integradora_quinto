@@ -14,16 +14,14 @@ export class NavtwoComponent implements OnInit{
  
   rol_id = 0
   constructor (private auth:AuthService,private router:Router) {
-
-  }
-
-  ngOnInit(): void {
-    this.getRol()
     this.router.events.subscribe((event)=>{
       if(event.constructor.name == 'NavigationEnd'){
         this.getRol()
       }
     })
+  }
+
+  ngOnInit(): void {
   }
 
   getRol(){
