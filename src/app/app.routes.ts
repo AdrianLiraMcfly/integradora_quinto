@@ -17,8 +17,8 @@ export const routes: Routes = [
         { path:  'perfil', loadComponent:() => import('./profile/profile.component').then(m => m.ProfileComponent),canActivate:[tokenGuard,activeGuard]}
     ]},
 
-    { path: 'registro', loadComponent:() => import('./registro/registro.component').then(m => m.RegistroComponent)},
-    { path: 'login', loadComponent:() => import('./login/login.component').then(m => m.LoginComponent)},
+    { path: 'registro', loadComponent:() => import('./registro/registro.component').then(m => m.RegistroComponent),canActivate:[istokenGuard]},
+    { path: 'login', loadComponent:() => import('./login/login.component').then(m => m.LoginComponent),canActivate:[istokenGuard]},
     { path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: '**', loadComponent:() => import('./not-found/not-found.component').then(m => m.NotFoundComponent)},
 ];
