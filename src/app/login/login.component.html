@@ -1,53 +1,70 @@
 <app-navone></app-navone>
-<div *ngIf="isError" class="{{alert}}" role="alert">
-    {{errormsg}}
-</div>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-white text-center">
-                    <h3>Iniciar sesión</h3>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="formlogin" (ngSubmit)="Onsubmit()">
-                        <div class="mb-3" [hidden]="isAuth">
-                            <label for="inputEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control" id="inputEmail" formControlName="email" name="email" [(ngModel)]="login.email" required>
-                            <div class="text-danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-                                <div *ngIf="email?.errors?.['required']">El correo electrónico es requerido</div>
-                                <div *ngIf="email?.errors?.['email']">El correo electrónico debe ser válido</div>
-                                <div *ngIf="email?.errors?.['pattern']">El correo electrónico debe ser válido</div>
+@if(errorMsg){
+    <div class="alert alert-danger" role="alert">
+        {{errorMsg}}
+    </div>
+    }
+    @if(msg){
+        <div class="alert alert-success" role="alert">
+            {{msg}}
+        </div>
+        }
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-white text-center">
+                        <h3>Iniciar sesión</h3>
+                    </div>
+                    <div class="card-body">
+                        @if(!showCode){
+                        <form [formGroup]="loginForm" (ngSubmit)="login()">
+                            
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="inputEmail" name="email" formControlName="email" placeholder="Email" required>
+                                <div class="text-danger" *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+                                    <div *ngIf="loginForm.controls['email'].errors?.['required']">El correo electrónico es requerido</div>
+                                    <div *ngIf="loginForm.controls['email'].errors?.['email']">El correo electrónico debe ser válido</div>
+                                    <div *ngIf="loginForm.controls['email'].errors?.['pattern']">El correo electrónico debe ser de Gmail</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3" [hidden]="isAuth">
-                            <label for="inputPassword" class="form-label">Contraseña</label>
-                            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" formControlName="password" name="password" [(ngModel)]="login.password" required>
-                            <div class="text-danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-                                <div *ngIf="password?.errors?.['required']">La contraseña es requerida</div>
-                                <div *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</div>
-                                <div *ngIf="password?.errors?.['pattern']">La contraseña debe contener al menos una letra y un número</div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Contraseña</label>
+                                <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="inputPassword" name="password" required formControlName="password" placeholder="Contraseña">
+                                <div class="text-danger" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                                    <div *ngIf="loginForm.controls['password'].errors?.['required']">La contraseña es requerida</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3" [hidden]="isAuth">
-                            <input type="checkbox" id="showPassword" (change)="togglePasswordVisibility()" [(ngModel)]="showPassword">
-                            <label for="showPassword" class="form-label">Mostrar contraseña</label>
-                        </div>
-                        <div class="mb-3" *ngIf="isAuth">
-                            <label for="code" class="form-label">Codigo de autorizacion</label>
-                            <input type="text" class="form-control" id="code" formControlName="code" name="code" placeholder="Ingresa el codigo" [(ngModel)]="verify.code" required>
-                            <div class="text-danger" *ngIf="code?.invalid && (code?.dirty || code?.touched)">
-                                <div *ngIf="code?.errors?.['minlength']">Codigo de autorizacion debe tener 6 caracteres</div>
-                                <div *ngIf="code?.errors?.['required']">Codigo de autorizacion es requerido</div>
+                            <div class="mb-3">
+                                <input type="checkbox" id="showPassword" (change)="toggleShowPassword()">
+                                <label for="showPassword" class="form-label">Mostrar contraseña</label>
+                              </div>
+                            <button class="btn text-white w-100" [disabled]="loginForm.invalid || buttonDisabled">Iniciar sesión</button>
+                            
+                        </form>
+                        }   
+                        @if(showCode){
+                        <form [formGroup]="codeForm" (ngSubmit)="verifycode()">
+                            <div class="mb-3">
+                                <label for="code" class="form-label">Codigo de autorizacion</label>
+                                <input type="text" class="form-control" id="code" name="code" placeholder="Ingresa el codigo" formControlName="code" required>
+                                <div class="text-danger" *ngIf="codeForm.controls['code'].invalid && (codeForm.controls['code'].dirty || codeForm.controls['code'].touched)">
+                                    <div *ngIf="codeForm.controls['code'].errors?.['required']">El codigo es requerido</div>
+                                    <div *ngIf="codeForm.controls['code'].errors?.['minLength']">El codigo debe tener al menos 6 caracteres</div>
+                                    <div *ngIf="codeForm.controls['code'].errors?.['maxLength']">El codigo no puede tener más de 6 caracteres</div>
+                                    <div *ngIf="codeForm.controls['code'].errors?.['pattern']">El codigo debe ser un número de 6 dígitos</div>
+                                </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn text-white w-100" >Iniciar sesión</button>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <p>¿Aun no tienes cuenta? <a routerLink="/registro">Registrate</a></p>
+                            <button class="btn text-white w-100" [disabled]="codeForm.invalid">Verificar</button>
+                        </form>
+                        }
+                    </div>
+                    <div class="card-footer text-center">
+                        <p>¿Aun no tienes cuenta? <a routerLink="/registro">Registrate</a></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    

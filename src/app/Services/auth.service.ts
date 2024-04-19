@@ -28,6 +28,10 @@ export class AuthService {
     return this.http.post<LoginResponseInterface>(`${environment.UrlAuth}/login`,data);
   }
 
+  verifyCode(data:LoginDataInterface):Observable<LoginResponseInterface>{
+    return this.http.post<LoginResponseInterface>(`${environment.UrlAuth}/login`,data);
+  }
+
   me():Observable<tokenResponseInterface>{
     return this.http.get<tokenResponseInterface>(`${environment.UrlAuth}/me`);
   }

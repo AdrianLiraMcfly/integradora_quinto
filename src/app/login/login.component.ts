@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { FormControl, FormsModule, ReactiveFormsModule ,FormGroup,Validators} from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule ,FormGroup,Validators, FormBuilder} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../Services/auth.service';
 import { LoginDataInterface, LoginAuthInterface } from '../core/interfaces/login';
 import { MessageService } from '../Services/message.service';
 import { NavoneComponent } from '../navone/navone.component';
+import { CodeDataInterface } from '../core/interfaces/CodeData.Interface';
 
 @Component({
   selector: 'app-login',
@@ -16,105 +17,70 @@ import { NavoneComponent } from '../navone/navone.component';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private auth:AuthService, private router:Router, private msg:MessageService) { }
+  loginForm:FormGroup;
+  codeForm:FormGroup;
+  showCode = false;
+  showPassword=false;
+  buttonDisabled = false;
+  errorMsg = '';
+  msg=''
+  public loginData:LoginDataInterface={email:'',password:''};
+  public codeData:CodeDataInterface={email:'',password:'',code:''};
 
-  public login:LoginDataInterface = {email:'', password:''};
-  public verify:LoginAuthInterface = {email:'', password:'', code:null};
-  isAuth = false;
-  errormsg = '';
-  isError= false;
-  alert =''
-  message = '';
-  showPassword = false;
+  constructor(private authService:AuthService,private formBuilder:FormBuilder,private router:Router) {
+    this.loginForm = this.formBuilder.group({
+      email: [this.loginData.email, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      password: [this.loginData.password, [Validators.required]]
+    });
+    this.codeForm = this.formBuilder.group({
+      code: [this.codeData.code, [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern(/^[0-9]{6}$/)]]
+    });
+   }
 
-  ngOnInit(): void {
-    this.message = this.msg.getMessage();
-    if(this.message !== ''){
-      this.isError = true;
-      this.errormsg = this.message;
-      this.alert  = 'alert alert-success'
-      setTimeout(() => {
-        this.isError = false;
-        this.errormsg = '';
-        this.alert  = ''
-      }, 10000);
-    }
-  }
-
-  formlogin = new FormGroup({
-    email: new FormControl('',  [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    code: new FormControl('', [Validators.required, Validators.minLength(6)])
-  });
-
-  get email() { return this.formlogin.get('email'); }
-  get password() { return this.formlogin.get('password'); }
-  get code() { return this.formlogin.get('code'); }
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-  Onsubmit():void{
-    if(!this.isAuth){
-    this.auth.login(this.login).subscribe(
-      res => {
-        this.isAuth = true;
-        console.log(res);
-        this.isError = true;
-        this.errormsg = res.msg;
-        this.alert  = 'alert alert-success'
+  login(){
+    if(this.loginForm.valid){
+      this.loginData = this.loginForm.value;
+      this.authService.login(this.loginData).subscribe((response)=>{
+        this.showCode = true;
+        console.log(response);
+        this.msg = response.msg;
         setTimeout(() => {
-          this.isError = false;
-          this.errormsg = '';
-          this.alert  = ''
-        }, 10000);
-      },
-      err => {
-        if(err.error === 'La cuenta no ha sido activada o no existe'){
-          this.isError = true;
-          this.errormsg = err.error;
-          this.alert  = 'alert alert-danger'
-          setTimeout(() => {
-            this.isError = false;
-            this.errormsg = '';
-            this.alert  = ''
-          }, 10000);
-        }
-        else if(err.status === 401){
-          this.isError = true;
-          this.errormsg = "Correo o contraseña incorrectos";
-          this.alert  = 'alert alert-danger'
-          setTimeout(() => {
-            this.isError = false;
-            this.errormsg = '';
-            this.alert  = ''
-          }, 10000);
-        }
-      }
-    );
+          this.msg = '';
+        }, 3000);
+      },(error)=>{
+        console.log(error);
+        console.log(error.error.error)
+        this.errorMsg = error.error.error;
+        console.log(this.errorMsg);
+        setTimeout(() => {
+          this.errorMsg = '';
+        }, 3000);
+      });
+      this.buttonDisabled = true;
+      setTimeout(()=>{
+        this.buttonDisabled = false;
+      }, 3000);
     }
-    else{
-      this.verify.email = this.login.email;
-      this.verify.password = this.login.password;
-      this.auth.verify(this.verify).subscribe(
-        res => {
-          console.log(res);
-          localStorage.setItem('token', res.access_token);
-          this.router.navigate(['/lifeplants/home'])
-        },
-        err => {
-          console.log(err);
-          this.isError = true;
-          this.errormsg = err.error;
-          this.alert  = 'alert alert-danger'
-          setTimeout(() => {
-            this.isError = false;
-            this.errormsg = '';
-            this.alert  = ''
-          }, 10000);
-        });
-    }
+  }
+  verifycode(){
+    this.codeData.code = this.codeForm.value.code;
+    this.codeData.email = this.loginData.email;
+    this.codeData.password = this.loginData.password
+    this.authService.verifyCode(this.codeData).subscribe((response)=>{
+        console.log(response);
+        localStorage.setItem('token',response.access_token);
+        this.router.navigate(['/lifeplants/home']);
+    },(error)=>{
+        this.errorMsg = error.error;
+        console.log(error);
+        console.log(error.error)
+        setTimeout(() => {
+          this.errorMsg = '';
+        }, 3000);
+    });
+  }
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }
 
