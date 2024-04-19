@@ -35,8 +35,8 @@ export class NavtwoComponent implements OnInit{
 
   logout(){
     this.auth.logout().subscribe((res)=>{
-        console.log(res)
         localStorage.removeItem('token')
+        localStorage.removeItem('userEmail')
         this.router.navigate(['/login'])
     },(err)=>{
       console.log(err)

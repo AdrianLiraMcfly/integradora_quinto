@@ -31,6 +31,7 @@ export class PlantComponent implements OnInit, OnDestroy{
   alert = '';
   buttonActive = true;
   echo:any;
+  img= '';
   newPlant: PlantRegistrer = {plant: ''};
   putPlant: PlantUpdate = {plant: '', status: 0};
   data_sensor: Mongo = {data: { _id: '', Temperatura: { Valor: 0, Unidad: '', Fecha: '' }, Humedad: { Valor: 0, Unidad: '', Fecha: '' }, Lluvia: { Valor: 0, Unidad: '', Fecha: '' }, Suelo: { Valor: 0, Unidad: '', Fecha: '' }, Agua: { Valor: 0, Unidad: '', Fecha: '' }, Luz: { Valor: 0, Unidad: '', Fecha: '' }, Movimiento: { Valor: 0, Unidad: '', Fecha: '' },Vibracion:{Valor:0,Unidad:'',Fecha:''}, updated_at: '', created_at: '' }};
@@ -54,6 +55,7 @@ export class PlantComponent implements OnInit, OnDestroy{
     } else {
       console.log('ID no definido');
     }
+    this.img = this.getImg(); 
 
     this.errormsg = this.msg.getMessage();
 
@@ -123,6 +125,10 @@ export class PlantComponent implements OnInit, OnDestroy{
       this.ngOnInit();
     });
   }
+  getImg(){
+    const numero = Math.floor(Math.random() * 5) + 1;
+    return `../../../assets/imagenes/plantsIcons/${numero}.jpg`;
+}
 
   regar() {
     this.alert = 'alert alert-success';

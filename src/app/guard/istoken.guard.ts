@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { Observable, catchError, map, of } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
-
 export class istokenGuard implements CanActivate {
   constructor(private router: Router, private auth:AuthService) { }
   canActivate(
@@ -15,20 +13,18 @@ export class istokenGuard implements CanActivate {
       return this.auth.isauth().pipe(
         map(response => {
           if (response.status === 200) {
-           
-            return true
-        
+            // Si el usuario ya está autenticado, redirige a la página de inicio
+            this.router.navigate(['/lifeplants/home']);
+            return false; // No permitir la navegación a la página de inicio de sesión o registro
           } else if(response.status === 401){
-            this.router.navigate(['/login'])
-            return false;
-          
+            return true; // Permitir la navegación a la página de inicio de sesión o registro
           }
-          return false;
+          return true;
         }),
         catchError(error => {
           console.error(error);
-          this.router.navigate(['/login'])
-          return of(false);
+          // En caso de error, permitir la navegación a la página de inicio de sesión o registro
+          return of(true);
         })
       );
     }

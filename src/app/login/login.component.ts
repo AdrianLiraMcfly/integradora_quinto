@@ -42,7 +42,6 @@ export class LoginComponent {
       this.loginData = this.loginForm.value;
       this.authService.login(this.loginData).subscribe((response)=>{
         this.showCode = true;
-        console.log(response);
         this.msg = response.msg;
         setTimeout(() => {
           this.msg = '';
@@ -68,6 +67,7 @@ export class LoginComponent {
     this.codeData.password = this.loginData.password
     this.authService.verifyCode(this.codeData).subscribe((response)=>{
         console.log(response);
+        this.loginForm.reset();
         localStorage.setItem('token',response.access_token);
         this.router.navigate(['/lifeplants/home']);
     },(error)=>{

@@ -23,11 +23,11 @@
     </div>
 
     <div class="container mt-5">
-        <div class="row" *ngIf="plants.data.length; else noPlants">
+        <div class="row" *ngIf="plants.data.length; else noPlants;">
             <div class="col-md-4" *ngFor="let plant of plants.data; let i = index">
                 <ng-container *ngIf="filteredPlants=='all' || (filteredPlants == 'active' && plant.status == 1 || (filteredPlants=='inactive' && plant.status != 1))">
                 <div class="card md-3" [ngClass]="{'border-primary': plant.status == 1, 'border-danger': plant.status != 1}" style="width: 18rem;">
-                    <img [src]="getImg()" class="card-img-top IconPlant" alt="...">
+                    <img [src]="srcImg[i]" class="card-img-top IconPlant" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">{{plant.plant}}</h5>
                       <p class="card-text">Estado: {{plant.status == 1 ? 'Activo' : 'Inactivo'}}</p>

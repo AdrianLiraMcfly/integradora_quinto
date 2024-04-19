@@ -23,7 +23,8 @@ export class PlantsComponent {
   isError = false;
   alert = '';
   errormsg:string = '';
-  srcImg = '';
+  srcImg:String[]= []; 
+  img= '';
 
   constructor(private plantsService: PlantsService, private msg:MessageService, private router:Router) {
   
@@ -32,16 +33,15 @@ export class PlantsComponent {
   ngOnInit() {
     
     this.plantsService.getPlants().subscribe(res => {
-      console.log(res);
       this.plants = res;
+      console.log(this.plants);
+      for (let i = 0; i < this.plants.data.length; i++) {
+         this.img = this.getImg(); // get a new image path
+        this.srcImg.push(this.img); // push it into the array
+      }
     });
+  
 
-    this.router.events.subscribe((event) => 
-      {
-        if(event.constructor.name === 'NavigationEnd'){
-          this.srcImg = this.getImg();
-        }
-      });
 
     this.id = 0;
     this.errormsg = this.msg.getMessage();
@@ -91,7 +91,8 @@ export class PlantsComponent {
   getImg(){
     const numero = Math.floor(Math.random() * 5) + 1;
     return `../../../assets/imagenes/plantsIcons/${numero}.jpg`;
-  }
+}
+
 
   openPlant(id:string){
     this.router.navigate(['/lifeplants/plant',id]);

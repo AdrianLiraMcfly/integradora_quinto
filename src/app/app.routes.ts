@@ -13,7 +13,7 @@ export const routes: Routes = [
         { path: 'plants', loadComponent:() => import('./plants/plants.component').then(m => m.PlantsComponent), canActivate: [tokenGuard, activeGuard]},
         { path: 'plant/:id', loadComponent:() => import('./plant/plant.component').then(m => m.PlantComponent), canActivate: [tokenGuard, activeGuard]},
         { path: 'users', loadComponent:() => import('./users/users.component').then(m => m.UsersComponent), canActivate: [tokenGuard, activeGuard, AdminGuard]},
-        { path: 'sensors', loadComponent:() => import('./sensors/sensors.component').then(m => m.SensorsComponent), canActivate: [tokenGuard, activeGuard, AdminGuard]}, 
+        { path: 'sensors', loadComponent:() => import('./sensors/sensors.component').then(m => m.SensorsComponent), canActivate: [tokenGuard, activeGuard, AdminGuard]},
         { path:  'perfil', loadComponent:() => import('./profile/profile.component').then(m => m.ProfileComponent),canActivate:[tokenGuard,activeGuard]}
     ]},
 
