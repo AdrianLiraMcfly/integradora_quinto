@@ -55,6 +55,7 @@ export class PlantComponent implements OnInit, OnDestroy{
     } else {
       console.log('ID no definido');
     }
+
     this.img = this.getImg(); 
 
     this.errormsg = this.msg.getMessage();
@@ -125,6 +126,7 @@ export class PlantComponent implements OnInit, OnDestroy{
       this.ngOnInit();
     });
   }
+
   getImg(){
     const numero = Math.floor(Math.random() * 5) + 1;
     return `../../../assets/imagenes/plantsIcons/${numero}.jpg`;
