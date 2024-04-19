@@ -7,7 +7,7 @@
         <div class="col-md-6">
             <div class="card border-primary shadow">
                 <div class="card-body text-center">
-                    <img src="../../assets/imagenes/plantsIcons/1.jpg" alt="" class="IconPlant mx-auto d-block">
+                    <img [src]="img" alt="" class="IconPlant mx-auto d-block">
                     <h1 class="card-title text-primary">{{plantdata.data.plant}}</h1>
                     <h2 [ngClass]="{'text-success': plantdata.data.status == 1, 'text-danger': plantdata.data.status != 1}">
                         {{plantdata.data.status == 1 ? 'Activo' : 'Inactivo'}}
