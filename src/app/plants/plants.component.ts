@@ -36,8 +36,8 @@ export class PlantsComponent {
       this.plants = res;
       console.log(this.plants);
       for (let i = 0; i < this.plants.data.length; i++) {
-         this.img = this.getImg(); // get a new image path
-        this.srcImg.push(this.img); // push it into the array
+         this.img = this.getImg(); 
+        this.srcImg.push(this.img);
       }
     });
   

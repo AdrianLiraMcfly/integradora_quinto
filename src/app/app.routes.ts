@@ -14,7 +14,8 @@ export const routes: Routes = [
         { path: 'plant/:id', loadComponent:() => import('./plant/plant.component').then(m => m.PlantComponent), canActivate: [tokenGuard, activeGuard]},
         { path: 'users', loadComponent:() => import('./users/users.component').then(m => m.UsersComponent), canActivate: [tokenGuard, activeGuard, AdminGuard]},
         { path: 'sensors', loadComponent:() => import('./sensors/sensors.component').then(m => m.SensorsComponent), canActivate: [tokenGuard, activeGuard, AdminGuard]}, 
-        { path: 'perfil', loadComponent:() => import('./profile/profile.component').then(m => m.ProfileComponent),canActivate:[tokenGuard,activeGuard]}
+        { path: 'perfil', loadComponent:() => import('./profile/profile.component').then(m => m.ProfileComponent),canActivate:[tokenGuard,activeGuard]},
+        { path: 'sensoresdatos', loadComponent:() => import('./sensores-datos/sensores-datos.component').then(m => m.SensoresDatosComponent),canActivate:[tokenGuard,activeGuard]},
     ]},
 
     { path: 'registro', loadComponent:() => import('./registro/registro.component').then(m => m.RegistroComponent),canActivate:[istokenGuard]},

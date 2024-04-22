@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>Sensores</h1>
+        </div>
+
+        <label for="" class="form-label">Disabled select menu</label>
+        <select (change)="selectChangeHandler($event)" class="form-select">
+          <option value="Agua">Agua</option>
+            <option value="Humedad">Humedad</option>
+            <option value="Luz">Luz</option>
+            <option value="Temperatura">Temperatura</option>
+            <option value="Movimiento">Movimiento</option>
+            <option value="Vibracion">Vibracion</option>
+            <option value="Lluvia">Lluvia</option>
+            <option value="Suelo">Suelo</option>
+        </select>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Valor</th>
+                    <th>Unidad</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sensor of sensors.data| paginate: {itemsPerPage: 10, currentPage: p}">
+                    <td>{{sensor?.Valor}}</td>
+                    <td>{{sensor?.Unidad}}</td>
+                    <td>{{sensor?.Fecha}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

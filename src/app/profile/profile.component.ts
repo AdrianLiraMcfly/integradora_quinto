@@ -3,6 +3,7 @@ import { AuthService } from '../Services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormsModule, ReactiveFormsModule ,FormGroup,Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MessageService } from '../Services/message.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,8 @@ export class ProfileComponent implements OnInit{
   plants = 0
   error =''
   msg=''
+  isError = false;
+  alert = '';
 
   profile = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^[a-zA-Z0-9 ]*$/)])
@@ -25,9 +28,22 @@ export class ProfileComponent implements OnInit{
   get password() { return this.profile.get('password'); }
 
 
-  constructor(private auth:AuthService,private router:Router){}
+  constructor(private auth:AuthService,private router:Router, private msgService:MessageService){}
 
   ngOnInit(): void {
+
+    this.msg = this.msgService.getMessage()
+    console.log(this.msg)
+    if(this.msg !== '' ){
+      this.isError = true;
+      this.alert = 'alert alert-success';
+      setTimeout(() => {
+        this.isError = false;
+        this.msg = '';
+        this.alert = '';
+      }, 10000);
+    }
+
       this.auth.me().subscribe((res)=>{
         console.log(res)
         this.name = res.name
@@ -41,11 +57,12 @@ export class ProfileComponent implements OnInit{
 
   changepassword(){
     const password = this.profile.get('password')?.value
-    this.auth.changepassword({password}).subscribe((res)=>{
-      console.log('Response:', res); // Añade esta línea para verificar la respuesta del servidor
-      console.log(res)
+    this.auth.changepassword({password}).subscribe((Response)=>{
+      console.log('Response:', Response); // Añade esta línea para verificar la respuesta del servidor
+      console.log(Response)
       this.profile.get('password')?.reset()
-      this.msg = res.body
+      
+      this.msgService.setMessage(this.msg)
       console.log(this.msg)
       setTimeout(() => {
         this.msg = ''
